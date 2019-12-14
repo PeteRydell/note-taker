@@ -42,7 +42,6 @@
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="/assets/js/index.js"></script>
 </body>
 
 </html>
@@ -61,6 +60,24 @@
     };
 
     console.log(newNote);
+
+    $.post("/api/notesData", newNote,
+      function(data) {
+
+        // If a text input alert it's been saved.
+        if (data) {
+          alert("Note saved!");
+        }
+
+        // If no text input alert user needs to take better notes.
+        else {
+          alert("Need to be taking better notes!");
+        }
+
+        // Clear the form when submitting
+        $("#list-group").val("");
+
+      });
 
 });
 
