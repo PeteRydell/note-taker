@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/public/assets/css/style.css">
 </head>
 
 <body>
@@ -30,15 +30,9 @@
         </div>
       </div>
       <div class="col-8">
-        <div class="card">
-          <div class="card-header">
-              <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
-          </div>
-          <div class="card-body">
-            <textarea class="note-textarea" placeholder="Note Text"></textarea>
-          </div>
-        </div>
-      </div>
+          <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
+          <textarea class="note-textarea" placeholder="Note Text"></textarea>
+      </div>  
     </div>
   </div>
   <footer class="footer">
@@ -111,12 +105,8 @@ function runNotesQuery() {
         var listItem = $("<li class='list-group-item mt-4'>");
 
         listItem.append(
-          $("<h2>").text("Table #" + (i + 1)),
-          $("<hr>"),
           $("<h2>").text("ID: " + notesData[i].customerID),
           $("<h2>").text("Name: " + notesData[i].customerName),
-          $("<h2>").text("Email: " + notesData[i].customerEmail),
-          $("<h2>").text("Phone: " + notesData[i].phoneNumber)
         );
 
         notesList.append(listItem);
