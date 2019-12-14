@@ -17,8 +17,8 @@
     <a class="navbar-brand" href="/">Note Taker
     </a>
     <div class="icons">
-      <i class="fas fa-save text-light save-note"></i>
-      <i class="fas fa-pen text-light new-note"></i>
+      <button type="submit" class="btn btn-primary submit"><i class="fas fa-save text-light submit"></i></button>
+      <button type="submit" class="btn btn-primary submit"><i class="fas fa-pen text-light new-note"></i></button>
     </div>
   </nav>
   <div class="container-fluid">
@@ -45,16 +45,14 @@
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
   // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-  // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-  // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-  // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
 
-  $(".save-note").on("click", function(event) {
+  $(".submit").on("click", function(event) {
     event.preventDefault();
 
     // Here we grab the form elements
-    var newNotes = {
-      customerName: $("#notes").val().trim(),
+    var newNote = {
+      title: $(".note-title").val().trim(),
+      note: $(".note-textarea").val().trim(),
     };
 
     console.log(newNote);
