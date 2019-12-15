@@ -12,13 +12,87 @@
   <link rel="stylesheet" href="/public/assets/css/style.css">
 </head>
 
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .save-note {
+    display: none;
+  }
+  
+  .icons i {
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .note-textarea, .note-title {
+    color: #000000;
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+  
+  .note-textarea {
+    resize: none;
+    height: calc(100% - 63px);
+    padding-top: 15px;
+  }
+  
+  .note-title {
+    height: 50px;
+    margin-top: 13px;
+    font-size: 3rem;
+  }
+  
+  .note-title:read-only, .note-textarea:read-only {
+    color: #757575;
+  }
+  
+  .list-container .card {
+    height: calc(100vh - 70px);
+    border-bottom: none;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .list-container {
+    padding-left: 0;
+  }
+  
+  .list-container .list-group,
+  .list-container .list-group-item:first-child,
+  .list-container .card {
+    border-top: none;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+  
+  .list-container i {
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  
+  .list-container .list-group-item {
+    border-left: none;
+    border-right: none;
+    padding: 20px;
+    cursor: pointer;
+  }
+  
+</style>
+
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Note Taker
     </a>
     <div class="icons">
       <button type="submit" class="btn btn-primary submit"><i class="fas fa-save text-light submit"></i></button>
-      <button type="clear" class="btn btn-primary submit"><i class="fas fa-pen text-light new-note"></i></button>
+      <button type="clear" class="btn btn-primary clear"><i class="fas fa-pen text-light new-note"></i></button>
     </div>
   </nav>
   <div class="container-fluid">
@@ -93,20 +167,19 @@ function runNotesQuery() {
 
       // Here we then log the notesData to console, where it will show up as an object.
       console.log(notesData);
-      console.log("------------------------------------");
 
       // Loop through and display each of the customers
       for (var i = 0; i < notesData.length; i++) {
 
         // Get a reference to the notesList element and populate it with notesData
-        var notesList = $("#list-group");
+        var notesList = $(".list-group");
 
         // Then display the fields in the HTML (Section Name, Date, URL)
         var listItem = $("<li class='list-group-item mt-4'>");
 
         listItem.append(
-          $("<h2>").text("ID: " + notesData[i].customerID),
-          $("<h2>").text("Name: " + notesData[i].customerName),
+          $("<h2>").text(notesData[i].title),
+          $("<h2>").text(notesData[i].note),
         );
 
         notesList.append(listItem);
@@ -114,57 +187,22 @@ function runNotesQuery() {
     });
 }
 
-function runWaitListQuery() {
-
-  // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-  $.ajax({ url: "/api/waitlist", method: "GET" })
-    .then(function(waitData) {
-
-      // Here we then log the waitlistData to console, where it will show up as an object.
-      console.log(waitData);
-      console.log("------------------------------------");
-
-      // Loop through and display each of the customers
-      for (var i = 0; i < waitData.length; i++) {
-
-        // Get a reference to the waitList element and populate it with notesData
-        var waitList = $("#list-group");
-
-        // Then display the fields in the HTML (Section Name, Date, URL)
-        var listItem = $("<li class='list-group-item mt-4'>");
-
-        listItem.append(
-          $("<h2>").text("Table #" + (i + 1)),
-          $("<hr>"),
-          $("<h2>").text("ID: " + waitData[i].customerID),
-          $("<h2>").text("Name: " + waitData[i].customerName),
-          $("<h2>").text("Email: " + waitData[i].customerEmail),
-          $("<h2>").text("Phone: " + waitData[i].phoneNumber)
-        );
-
-        waitList.append(listItem);
-      }
-    });
-}
-
 // This function resets all of the data in our notesData. This is intended to let you restart a demo.
-function clearTable() {
+function clearNotes() {
   alert("Clearing...");
 
   // Clear the notesData on the server and then empty the elements on the client
   $.ajax({ url: "/api/clear", method: "POST" }).then(function() {
-    $("#waitList").empty();
-    $("#notesList").empty();
+    $(".list-group").empty();
   });
 }
 
-$("#clear").on("click", clearTable);
+$(".clear").on("click", clearNotes);
 
 
 // Run Queries!
 // ==========================================
 runNotesQuery();
-runWaitListQuery();
 
 
 </script>
