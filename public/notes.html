@@ -134,8 +134,6 @@ html, body {
       note: $(".note-textarea").val().trim(),
     };
 
-    console.log(newNote);
-
     $.post("/api/notesData", newNote,
       function(data) {
 
